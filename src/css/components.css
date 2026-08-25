@@ -777,3 +777,50 @@
   background: var(--primary-hover);
   transform: translateY(-2px);
 }
+
+@media (max-width: 540px) {
+  .barra-flutuante {
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    padding: 0 10px;
+  }
+
+  .barra-container {
+    padding: 10px 14px;
+    gap: 8px;
+  }
+
+  .barra-info {
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .carrinho-icone-box {
+    width: 38px;
+    height: 38px;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  .carrinho-titulo {
+    font-size: 0.88rem;
+    white-space: nowrap;
+  }
+
+  .carrinho-detalhe {
+    font-size: 0.72rem;
+  }
+
+  .barra-acoes {
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .total-valor {
+    font-size: 1.1rem;
+  }
+
+  .btn-finalizar-pedido {
+    padding: 10px 14px;
+    font-size: 0.85rem;
+  }
+}

@@ -28,6 +28,9 @@ export class ModalView {
     } else {
       modal.setAttribute("open", "true");
     }
+    document.body.classList.add("modal-aberto");
+    const bodyScroll = modal.querySelector(".modal-body");
+    if (bodyScroll) bodyScroll.scrollTop = 0;
   }
 
   fecharModal(modal) {
@@ -36,6 +39,10 @@ export class ModalView {
       modal.close();
     } else {
       modal.removeAttribute("open");
+    }
+    const modaisAbertos = document.querySelectorAll("dialog[open]");
+    if (modaisAbertos.length === 0) {
+      document.body.classList.remove("modal-aberto");
     }
   }
 

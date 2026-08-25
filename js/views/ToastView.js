@@ -39,6 +39,7 @@ export class ToastView {
     } else {
       modalConf.setAttribute("open", "true");
     }
+    document.body.classList.add("modal-aberto");
   }
 
   static fecharModalConfirmacao() {
@@ -48,5 +49,9 @@ export class ToastView {
       else modalConf.removeAttribute("open");
     }
     window.acaoConfirmacaoPendente = null;
+    const modaisAbertos = document.querySelectorAll("dialog[open]");
+    if (modaisAbertos.length === 0) {
+      document.body.classList.remove("modal-aberto");
+    }
   }
 }

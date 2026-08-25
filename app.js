@@ -102,7 +102,7 @@ const PRODUTOS_PADRAO = [
 
 const CONFIG_PADRAO = {
   nomeLoja: "Sabor & Arte Gourmet",
-  whatsapp: "5579999999999",
+  whatsapp: "5579999820686",
   taxaEntrega: 5.00,
   chavePix: "pix@saborearte.com.br"
 };
@@ -176,7 +176,12 @@ function salvarCarrinho() {
 function carregarConfig() {
   try {
     const salvos = localStorage.getItem("cardapio_pro_config");
-    return salvos ? JSON.parse(salvos) : { ...CONFIG_PADRAO };
+    if (!salvos) return { ...CONFIG_PADRAO };
+    const parsed = JSON.parse(salvos);
+    if (parsed.whatsapp === "5579999999999") {
+      parsed.whatsapp = CONFIG_PADRAO.whatsapp;
+    }
+    return { ...CONFIG_PADRAO, ...parsed };
   } catch (e) {
     return { ...CONFIG_PADRAO };
   }
@@ -544,7 +549,10 @@ function fecharModalConfig() {
 
 function salvarConfiguracoesLoja() {
   const nome = document.getElementById("config-nome-loja").value.trim() || CONFIG_PADRAO.nomeLoja;
-  const wa = document.getElementById("config-whatsapp").value.replace(/\D/g, "") || CONFIG_PADRAO.whatsapp;
+  let wa = document.getElementById("config-whatsapp").value.replace(/\D/g, "") || CONFIG_PADRAO.whatsapp;
+  if (wa.length === 10 || wa.length === 11) {
+    wa = "55" + wa;
+  }
   const taxa = parseFloat(document.getElementById("config-taxa-entrega").value) || 0;
   const pix = document.getElementById("config-chave-pix").value.trim() || CONFIG_PADRAO.chavePix;
 
@@ -769,7 +777,10 @@ function finalizarPedidoWhatsApp() {
     texto += `📝 *Observações:* ${obs}\n`;
   }
 
-  const numeroWhats = configLoja.whatsapp || CONFIG_PADRAO.whatsapp;
+  let numeroWhats = (configLoja.whatsapp || CONFIG_PADRAO.whatsapp).toString().replace(/\D/g, "");
+  if (numeroWhats.length === 10 || numeroWhats.length === 11) {
+    numeroWhats = "55" + numeroWhats;
+  }
   const url = `https://wa.me/${numeroWhats}?text=${encodeURIComponent(texto)}`;
   window.open(url, "_blank");
 

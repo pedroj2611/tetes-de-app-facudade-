@@ -286,7 +286,10 @@ export class AppController {
     if (btnSalvarConfig) {
       btnSalvarConfig.addEventListener("click", () => {
         const nomeLoja = document.getElementById("config-nome-loja").value.trim() || CONFIG_PADRAO.nomeLoja;
-        const whatsapp = document.getElementById("config-whatsapp").value.replace(/\D/g, "") || CONFIG_PADRAO.whatsapp;
+        let whatsapp = document.getElementById("config-whatsapp").value.replace(/\D/g, "") || CONFIG_PADRAO.whatsapp;
+        if (whatsapp.length === 10 || whatsapp.length === 11) {
+          whatsapp = "55" + whatsapp;
+        }
         const taxaEntrega = parseFloat(document.getElementById("config-taxa-entrega").value) || 0;
         const chavePix = document.getElementById("config-chave-pix").value.trim() || CONFIG_PADRAO.chavePix;
 
@@ -430,7 +433,10 @@ export class AppController {
       texto += `📝 *Observações:* ${obs}\n`;
     }
 
-    const numeroWhats = config.whatsapp || CONFIG_PADRAO.whatsapp;
+    let numeroWhats = (config.whatsapp || CONFIG_PADRAO.whatsapp).toString().replace(/\D/g, "");
+    if (numeroWhats.length === 10 || numeroWhats.length === 11) {
+      numeroWhats = "55" + numeroWhats;
+    }
     const url = `https://wa.me/${numeroWhats}?text=${encodeURIComponent(texto)}`;
     window.open(url, "_blank");
 

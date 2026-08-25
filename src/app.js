@@ -721,8 +721,13 @@ if (btnCopiarPix) {
 
 // Enviar pedido formatado para WhatsApp
 function finalizarPedidoWhatsApp() {
+  if (clienteNomeInput) clienteNomeInput.classList.remove("input-erro");
+  if (clienteLocalInput) clienteLocalInput.classList.remove("input-erro");
+
   if (carrinho.length === 0) {
-    mostrarToast("Seu carrinho está vazio!", "⚠️");
+    mostrarToast("Adicione produtos ao carrinho antes de enviar!", "⚠️");
+    const listaModal = document.getElementById("pedido-itens-lista");
+    if (listaModal) listaModal.scrollIntoView({ behavior: "smooth", block: "center" });
     return;
   }
 
@@ -734,14 +739,25 @@ function finalizarPedidoWhatsApp() {
   const obs = pedidoObsInput.value.trim();
 
   if (!nome) {
-    mostrarToast("Informe seu nome completo!", "⚠️");
-    clienteNomeInput.focus();
+    mostrarToast("Por favor, digite seu nome completo!", "⚠️");
+    if (clienteNomeInput) {
+      clienteNomeInput.classList.add("input-erro");
+      clienteNomeInput.scrollIntoView({ behavior: "smooth", block: "center" });
+      clienteNomeInput.focus();
+      clienteNomeInput.addEventListener("input", () => clienteNomeInput.classList.remove("input-erro"), { once: true });
+    }
     return;
   }
 
   if (tipo !== "Balcão" && !local) {
-    mostrarToast("Informe o local ou endereço!", "⚠️");
-    clienteLocalInput.focus();
+    const rotulo = (tipo === "Mesa") ? "o número da sua mesa" : "seu endereço de entrega";
+    mostrarToast(`Por favor, informe ${rotulo}!`, "⚠️");
+    if (clienteLocalInput) {
+      clienteLocalInput.classList.add("input-erro");
+      clienteLocalInput.scrollIntoView({ behavior: "smooth", block: "center" });
+      clienteLocalInput.focus();
+      clienteLocalInput.addEventListener("input", () => clienteLocalInput.classList.remove("input-erro"), { once: true });
+    }
     return;
   }
 
@@ -781,8 +797,16 @@ function finalizarPedidoWhatsApp() {
   if (numeroWhats.length === 10 || numeroWhats.length === 11) {
     numeroWhats = "55" + numeroWhats;
   }
-  const url = `https://wa.me/${numeroWhats}?text=${encodeURIComponent(texto)}`;
-  window.open(url, "_blank");
+  
+  const url = `https://api.whatsapp.com/send?phone=${numeroWhats}&text=${encodeURIComponent(texto)}`;
+  
+  const a = document.createElement("a");
+  a.href = url;
+  a.target = "_blank";
+  a.rel = "noopener noreferrer";
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => a.remove(), 200);
 
   fecharModal();
   solicitarConfirmacao(

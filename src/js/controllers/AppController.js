@@ -187,18 +187,24 @@ export class AppController {
       btnEnviarWhatsApp.addEventListener("click", () => this.finalizarPedidoWhatsApp());
     }
 
-    // Modal de Itens no Checkout (steppers inline)
+    // Modal de Itens no Checkout (steppers inline e botão escolher produtos)
     const listaModal = document.getElementById("pedido-itens-lista");
     if (listaModal) {
       listaModal.addEventListener("click", (e) => {
         const btnAumentar = e.target.closest(".btn-modal-aumentar");
         const btnDiminuir = e.target.closest(".btn-modal-diminuir");
+        const btnEscolher = e.target.closest("#btn-modal-escolher-prod");
+
         if (btnAumentar) {
           this.cartModel.alterarQuantidade(parseInt(btnAumentar.dataset.id), 1);
           this.atualizarInterface();
         } else if (btnDiminuir) {
           this.cartModel.alterarQuantidade(parseInt(btnDiminuir.dataset.id), -1);
           this.atualizarInterface();
+        } else if (btnEscolher) {
+          this.modalView.fecharModal(this.modalView.modalPedido);
+          const grid = document.getElementById("grid-produtos");
+          if (grid) grid.scrollIntoView({ behavior: "smooth" });
         }
       });
     }
@@ -368,18 +374,26 @@ export class AppController {
   }
 
   finalizarPedidoWhatsApp() {
-    const itens = this.cartModel.obterItens();
-    if (itens.length === 0) {
-      ToastView.mostrarToast("Seu carrinho está vazio!", "⚠️");
-      return;
-    }
-
     const clienteNomeInput = document.getElementById("cliente-nome");
     const tipoAtendimentoSelect = document.getElementById("tipo-atendimento");
     const clienteLocalInput = document.getElementById("cliente-local");
     const formaPagamentoSelect = document.getElementById("forma-pagamento");
     const pedidoTrocoInput = document.getElementById("pedido-troco");
     const pedidoObsInput = document.getElementById("pedido-obs");
+
+    // Limpa erros visuais anteriores
+    if (clienteNomeInput) clienteNomeInput.classList.remove("input-erro");
+    if (clienteLocalInput) clienteLocalInput.classList.remove("input-erro");
+
+    const itens = this.cartModel.obterItens();
+    if (itens.length === 0) {
+      ToastView.mostrarToast("Adicione produtos ao carrinho antes de enviar!", "⚠️");
+      const listaModal = document.getElementById("pedido-itens-lista");
+      if (listaModal) {
+        listaModal.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      return;
+    }
 
     const nome = clienteNomeInput ? clienteNomeInput.value.trim() : "";
     const tipo = tipoAtendimentoSelect ? tipoAtendimentoSelect.value : "Delivery";
@@ -389,14 +403,25 @@ export class AppController {
     const obs = pedidoObsInput ? pedidoObsInput.value.trim() : "";
 
     if (!nome) {
-      ToastView.mostrarToast("Informe seu nome completo!", "⚠️");
-      if (clienteNomeInput) clienteNomeInput.focus();
+      ToastView.mostrarToast("Por favor, digite seu nome completo!", "⚠️");
+      if (clienteNomeInput) {
+        clienteNomeInput.classList.add("input-erro");
+        clienteNomeInput.scrollIntoView({ behavior: "smooth", block: "center" });
+        clienteNomeInput.focus();
+        clienteNomeInput.addEventListener("input", () => clienteNomeInput.classList.remove("input-erro"), { once: true });
+      }
       return;
     }
 
     if (tipo !== "Balcão" && !local) {
-      ToastView.mostrarToast("Informe a mesa ou endereço!", "⚠️");
-      if (clienteLocalInput) clienteLocalInput.focus();
+      const rotulo = (tipo === "Mesa") ? "o número da sua mesa" : "seu endereço de entrega";
+      ToastView.mostrarToast(`Por favor, informe ${rotulo}!`, "⚠️");
+      if (clienteLocalInput) {
+        clienteLocalInput.classList.add("input-erro");
+        clienteLocalInput.scrollIntoView({ behavior: "smooth", block: "center" });
+        clienteLocalInput.focus();
+        clienteLocalInput.addEventListener("input", () => clienteLocalInput.classList.remove("input-erro"), { once: true });
+      }
       return;
     }
 
@@ -437,8 +462,18 @@ export class AppController {
     if (numeroWhats.length === 10 || numeroWhats.length === 11) {
       numeroWhats = "55" + numeroWhats;
     }
-    const url = `https://wa.me/${numeroWhats}?text=${encodeURIComponent(texto)}`;
-    window.open(url, "_blank");
+    
+    // Link direto oficial do WhatsApp
+    const url = `https://api.whatsapp.com/send?phone=${numeroWhats}&text=${encodeURIComponent(texto)}`;
+    
+    // Disparo confiável com suporte a navegadores móveis e desktop
+    const a = document.createElement("a");
+    a.href = url;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => a.remove(), 200);
 
     this.modalView.fecharModal(this.modalView.modalPedido);
     ToastView.solicitarConfirmacao(

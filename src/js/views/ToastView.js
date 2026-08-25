@@ -6,15 +6,28 @@
 
 export class ToastView {
   static mostrarToast(mensagem, icone = "✅") {
-    const toast = document.getElementById("toast");
+    let toast = document.getElementById("toast");
     if (!toast) return;
+
+    // Se houver algum <dialog> aberto no top-layer, insere dentro dele para não ficar oculto
+    const modalAberto = document.querySelector("dialog[open]");
+    if (modalAberto) {
+      if (toast.parentElement !== modalAberto) {
+        modalAberto.appendChild(toast);
+      }
+    } else {
+      if (toast.parentElement !== document.body) {
+        document.body.appendChild(toast);
+      }
+    }
+
     toast.innerHTML = `<span>${icone}</span> <span>${mensagem}</span>`;
     toast.classList.add("show");
 
     clearTimeout(toast.tempo);
     toast.tempo = setTimeout(() => {
       toast.classList.remove("show");
-    }, 2500);
+    }, 2800);
   }
 
   static solicitarConfirmacao(titulo, mensagem, icone, acao) {

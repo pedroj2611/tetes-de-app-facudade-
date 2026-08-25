@@ -1235,30 +1235,46 @@ body.modal-aberto {
 
 .toast-aviso {
   position: fixed;
-  bottom: 95px;
+  bottom: 85px;
   left: 50%;
   transform: translateX(-50%) translateY(40px);
-  background: rgba(15, 23, 42, 0.95);
-  backdrop-filter: blur(8px);
+  background: rgba(15, 23, 42, 0.96);
+  backdrop-filter: blur(12px);
   color: #ffffff;
   padding: 12px 22px;
   border-radius: var(--radius-full);
   font-size: 0.88rem;
   font-weight: 700;
-  box-shadow: var(--shadow-float);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
   opacity: 0;
   pointer-events: none;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 100;
+  z-index: 99999;
   display: flex;
   align-items: center;
   gap: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: max-content;
+  max-width: 90vw;
+  text-align: center;
 }
 
 .toast-aviso.show {
   transform: translateX(-50%) translateY(0);
   opacity: 1;
+}
+
+.input-erro {
+  border-color: #ef4444 !important;
+  background-color: #fef2f2 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25) !important;
+  animation: shake 0.35s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
 }
 
 /* ==========================================================================

@@ -2,13 +2,23 @@
 // SERVICE WORKER PROFISSIONAL (PWA) - CARDÁPIO GOURMET
 // ==========================================================================
 
-const CACHE_NAME = "cardapio-gourmet-v4";
+const CACHE_NAME = "cardapio-gourmet-v5";
 
 const ARQUIVOS_ESTATICOS = [
   "./",
   "./index.html",
   "./style.css",
-  "./app.js",
+  "./css/base.css",
+  "./css/components.css",
+  "./css/modals.css",
+  "./js/controllers/AppController.js",
+  "./js/models/ProductModel.js",
+  "./js/models/CartModel.js",
+  "./js/models/ConfigModel.js",
+  "./js/views/ProductView.js",
+  "./js/views/CartView.js",
+  "./js/views/ModalView.js",
+  "./js/views/ToastView.js",
   "./manifest.json",
   "./icons/icon-192.png",
   "./icons/icon-512.png"

@@ -458,6 +458,9 @@ export class AppController {
       texto += `📝 *Observações:* ${obs}\n`;
     }
 
+    texto += `----------------------------------------\n`;
+    texto += `🌐 *Cardápio Online:* https://pedroj2611.github.io/tetes-de-app-facudade-/\n`;
+
     let numeroWhats = (config.whatsapp || CONFIG_PADRAO.whatsapp).toString().replace(/\D/g, "");
     if (numeroWhats.length === 10 || numeroWhats.length === 11) {
       numeroWhats = "55" + numeroWhats;

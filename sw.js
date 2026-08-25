@@ -2,7 +2,7 @@
 // SERVICE WORKER PROFISSIONAL (PWA) - CARDÁPIO GOURMET
 // ==========================================================================
 
-const CACHE_NAME = "cardapio-gourmet-v7";
+const CACHE_NAME = "cardapio-gourmet-v8";
 
 const ARQUIVOS_ESTATICOS = [
   "./",

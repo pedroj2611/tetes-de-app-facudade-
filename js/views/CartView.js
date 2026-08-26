@@ -32,11 +32,10 @@ export class CartView {
     if (this.listaModal) {
       if (carrinho.length === 0) {
         this.listaModal.innerHTML = `
-          <div style="text-align: center; padding: 20px 14px; color: #64748b; background: #fff5f5; border-radius: var(--radius-md); border: 1.5px dashed #fca5a5; margin-bottom: 16px;">
-            <span style="font-size: 2.2rem; display: block; margin-bottom: 4px;">🛒</span>
-            <p style="font-size: 1.05rem; font-weight: 800; color: #991b1b; margin-bottom: 4px;">Seu carrinho está vazio</p>
-            <p style="font-size: 0.84rem; color: #7f1d1d; margin-bottom: 12px;">Selecione produtos deliciosos no cardápio antes de enviar o pedido.</p>
-            <button type="button" id="btn-modal-escolher-prod" class="btn-pedir-card" style="padding: 8px 16px; font-size: 0.84rem;">+ Escolher Produtos no Cardápio</button>
+          <div style="text-align: center; padding: 24px; color: #64748b;">
+            <span style="font-size: 2rem; display: block; margin-bottom: 6px;">🛒</span>
+            <p style="font-size: 1.05rem; font-weight: 700; color: var(--dark); margin-bottom: 4px;">Seu carrinho está vazio</p>
+            <p style="font-size: 0.85rem;">Selecione delícias do nosso cardápio para montar seu pedido.</p>
           </div>
         `;
       } else {

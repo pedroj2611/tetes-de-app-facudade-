@@ -6,28 +6,15 @@
 
 export class ToastView {
   static mostrarToast(mensagem, icone = "✅") {
-    let toast = document.getElementById("toast");
+    const toast = document.getElementById("toast");
     if (!toast) return;
-
-    // Se houver algum <dialog> aberto no top-layer, insere dentro dele para não ficar oculto
-    const modalAberto = document.querySelector("dialog[open]");
-    if (modalAberto) {
-      if (toast.parentElement !== modalAberto) {
-        modalAberto.appendChild(toast);
-      }
-    } else {
-      if (toast.parentElement !== document.body) {
-        document.body.appendChild(toast);
-      }
-    }
-
     toast.innerHTML = `<span>${icone}</span> <span>${mensagem}</span>`;
     toast.classList.add("show");
 
     clearTimeout(toast.tempo);
     toast.tempo = setTimeout(() => {
       toast.classList.remove("show");
-    }, 2800);
+    }, 2500);
   }
 
   static solicitarConfirmacao(titulo, mensagem, icone, acao) {
@@ -52,7 +39,6 @@ export class ToastView {
     } else {
       modalConf.setAttribute("open", "true");
     }
-    document.body.classList.add("modal-aberto");
   }
 
   static fecharModalConfirmacao() {
@@ -62,9 +48,5 @@ export class ToastView {
       else modalConf.removeAttribute("open");
     }
     window.acaoConfirmacaoPendente = null;
-    const modaisAbertos = document.querySelectorAll("dialog[open]");
-    if (modaisAbertos.length === 0) {
-      document.body.classList.remove("modal-aberto");
-    }
   }
 }

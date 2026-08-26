@@ -6,7 +6,7 @@
 
 export const CONFIG_PADRAO = {
   nomeLoja: "Sabor & Arte Gourmet",
-  whatsapp: "5579999820686",
+  whatsapp: "5579999999999",
   taxaEntrega: 5.00,
   chavePix: "pix@saborearte.com.br"
 };
@@ -19,13 +19,7 @@ export class ConfigModel {
   carregarConfig() {
     try {
       const salvos = localStorage.getItem("cardapio_pro_config");
-      if (!salvos) return { ...CONFIG_PADRAO };
-      const parsed = JSON.parse(salvos);
-      // Se tiver o número genérico antigo de teste, atualiza para o número do usuário
-      if (parsed.whatsapp === "5579999999999") {
-        parsed.whatsapp = CONFIG_PADRAO.whatsapp;
-      }
-      return { ...CONFIG_PADRAO, ...parsed };
+      return salvos ? JSON.parse(salvos) : { ...CONFIG_PADRAO };
     } catch (e) {
       return { ...CONFIG_PADRAO };
     }

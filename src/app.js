@@ -102,7 +102,7 @@ const PRODUTOS_PADRAO = [
 
 const CONFIG_PADRAO = {
   nomeLoja: "Sabor & Arte Gourmet",
-  whatsapp: "5579999820686",
+  whatsapp: "5579999999999",
   taxaEntrega: 5.00,
   chavePix: "pix@saborearte.com.br"
 };
@@ -176,12 +176,7 @@ function salvarCarrinho() {
 function carregarConfig() {
   try {
     const salvos = localStorage.getItem("cardapio_pro_config");
-    if (!salvos) return { ...CONFIG_PADRAO };
-    const parsed = JSON.parse(salvos);
-    if (parsed.whatsapp === "5579999999999") {
-      parsed.whatsapp = CONFIG_PADRAO.whatsapp;
-    }
-    return { ...CONFIG_PADRAO, ...parsed };
+    return salvos ? JSON.parse(salvos) : { ...CONFIG_PADRAO };
   } catch (e) {
     return { ...CONFIG_PADRAO };
   }
@@ -549,10 +544,7 @@ function fecharModalConfig() {
 
 function salvarConfiguracoesLoja() {
   const nome = document.getElementById("config-nome-loja").value.trim() || CONFIG_PADRAO.nomeLoja;
-  let wa = document.getElementById("config-whatsapp").value.replace(/\D/g, "") || CONFIG_PADRAO.whatsapp;
-  if (wa.length === 10 || wa.length === 11) {
-    wa = "55" + wa;
-  }
+  const wa = document.getElementById("config-whatsapp").value.replace(/\D/g, "") || CONFIG_PADRAO.whatsapp;
   const taxa = parseFloat(document.getElementById("config-taxa-entrega").value) || 0;
   const pix = document.getElementById("config-chave-pix").value.trim() || CONFIG_PADRAO.chavePix;
 
@@ -721,13 +713,8 @@ if (btnCopiarPix) {
 
 // Enviar pedido formatado para WhatsApp
 function finalizarPedidoWhatsApp() {
-  if (clienteNomeInput) clienteNomeInput.classList.remove("input-erro");
-  if (clienteLocalInput) clienteLocalInput.classList.remove("input-erro");
-
   if (carrinho.length === 0) {
-    mostrarToast("Adicione produtos ao carrinho antes de enviar!", "⚠️");
-    const listaModal = document.getElementById("pedido-itens-lista");
-    if (listaModal) listaModal.scrollIntoView({ behavior: "smooth", block: "center" });
+    mostrarToast("Seu carrinho está vazio!", "⚠️");
     return;
   }
 
@@ -739,25 +726,14 @@ function finalizarPedidoWhatsApp() {
   const obs = pedidoObsInput.value.trim();
 
   if (!nome) {
-    mostrarToast("Por favor, digite seu nome completo!", "⚠️");
-    if (clienteNomeInput) {
-      clienteNomeInput.classList.add("input-erro");
-      clienteNomeInput.scrollIntoView({ behavior: "smooth", block: "center" });
-      clienteNomeInput.focus();
-      clienteNomeInput.addEventListener("input", () => clienteNomeInput.classList.remove("input-erro"), { once: true });
-    }
+    mostrarToast("Informe seu nome completo!", "⚠️");
+    clienteNomeInput.focus();
     return;
   }
 
   if (tipo !== "Balcão" && !local) {
-    const rotulo = (tipo === "Mesa") ? "o número da sua mesa" : "seu endereço de entrega";
-    mostrarToast(`Por favor, informe ${rotulo}!`, "⚠️");
-    if (clienteLocalInput) {
-      clienteLocalInput.classList.add("input-erro");
-      clienteLocalInput.scrollIntoView({ behavior: "smooth", block: "center" });
-      clienteLocalInput.focus();
-      clienteLocalInput.addEventListener("input", () => clienteLocalInput.classList.remove("input-erro"), { once: true });
-    }
+    mostrarToast("Informe o local ou endereço!", "⚠️");
+    clienteLocalInput.focus();
     return;
   }
 
@@ -793,23 +769,9 @@ function finalizarPedidoWhatsApp() {
     texto += `📝 *Observações:* ${obs}\n`;
   }
 
-  texto += `----------------------------------------\n`;
-  texto += `🌐 *Cardápio Online:* https://pedroj2611.github.io/tetes-de-app-facudade-/\n`;
-
-  let numeroWhats = (configLoja.whatsapp || CONFIG_PADRAO.whatsapp).toString().replace(/\D/g, "");
-  if (numeroWhats.length === 10 || numeroWhats.length === 11) {
-    numeroWhats = "55" + numeroWhats;
-  }
-  
-  const url = `https://api.whatsapp.com/send?phone=${numeroWhats}&text=${encodeURIComponent(texto)}`;
-  
-  const a = document.createElement("a");
-  a.href = url;
-  a.target = "_blank";
-  a.rel = "noopener noreferrer";
-  document.body.appendChild(a);
-  a.click();
-  setTimeout(() => a.remove(), 200);
+  const numeroWhats = configLoja.whatsapp || CONFIG_PADRAO.whatsapp;
+  const url = `https://wa.me/${numeroWhats}?text=${encodeURIComponent(texto)}`;
+  window.open(url, "_blank");
 
   fecharModal();
   solicitarConfirmacao(

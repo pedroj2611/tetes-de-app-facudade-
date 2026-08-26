@@ -64,11 +64,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-body.modal-aberto {
-  overflow: hidden;
-  touch-action: none;
-}
-
 .app-container {
   max-width: 1000px;
   margin: 0 auto;
@@ -857,53 +852,6 @@ body.modal-aberto {
   transform: translateY(-2px);
 }
 
-@media (max-width: 540px) {
-  .barra-flutuante {
-    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
-    padding: 0 10px;
-  }
-
-  .barra-container {
-    padding: 10px 14px;
-    gap: 8px;
-  }
-
-  .barra-info {
-    gap: 10px;
-    min-width: 0;
-  }
-
-  .carrinho-icone-box {
-    width: 38px;
-    height: 38px;
-    font-size: 1.2rem;
-    flex-shrink: 0;
-  }
-
-  .carrinho-titulo {
-    font-size: 0.88rem;
-    white-space: nowrap;
-  }
-
-  .carrinho-detalhe {
-    font-size: 0.72rem;
-  }
-
-  .barra-acoes {
-    gap: 10px;
-    flex-shrink: 0;
-  }
-
-  .total-valor {
-    font-size: 1.1rem;
-  }
-
-  .btn-finalizar-pedido {
-    padding: 10px 14px;
-    font-size: 0.85rem;
-  }
-}
-
 
 /* --- modals.css --- */
 /* ==========================================================================
@@ -914,25 +862,16 @@ body.modal-aberto {
   border: none;
   border-radius: var(--radius-lg);
   padding: 0;
-  width: 94%;
-  max-width: 520px;
+  width: 92%;
+  max-width: 540px;
   margin: auto;
   box-shadow: var(--shadow-float);
   background: #ffffff;
-  max-height: 90vh;
-  max-height: 90dvh;
   overflow: hidden;
-}
-
-.modal-dialog[open] {
-  display: flex;
-  flex-direction: column;
 }
 
 .modal-dialog.modal-small {
   max-width: 400px;
-  max-height: 80vh;
-  max-height: 80dvh;
 }
 
 .modal-dialog::backdrop {
@@ -944,22 +883,16 @@ body.modal-aberto {
 .modal-content {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  max-height: 90vh;
-  max-height: 90dvh;
-  min-height: 0;
-  overflow: hidden;
+  max-height: 88vh;
 }
 
 .modal-header {
-  padding: 16px 20px;
+  padding: 18px 22px;
   border-bottom: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: #ffffff;
-  flex-shrink: 0;
-  z-index: 10;
 }
 
 .modal-header-title {
@@ -974,13 +907,13 @@ body.modal-aberto {
 
 .modal-header h3 {
   font-family: var(--font-heading);
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   font-weight: 800;
   color: var(--dark);
 }
 
 .modal-sub {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
 }
 
@@ -1005,13 +938,9 @@ body.modal-aberto {
 }
 
 .modal-body {
-  padding: 20px;
+  padding: 22px;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
-  flex: 1 1 auto;
-  min-height: 0;
-  touch-action: pan-y;
+  flex: 1;
 }
 
 .pedido-itens-lista {
@@ -1025,38 +954,34 @@ body.modal-aberto {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 14px;
+  padding: 12px 16px;
   background: #f8fafc;
   border-radius: var(--radius-md);
   border: 1.5px solid var(--border);
-  gap: 10px;
+  gap: 12px;
 }
 
 .modal-item-detalhes {
   flex: 1;
-  min-width: 0;
 }
 
 .modal-item-nome {
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   font-weight: 700;
   color: var(--dark);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .modal-item-unit {
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
 }
 
 .modal-item-subtotal {
   font-family: var(--font-heading);
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 800;
   color: var(--dark);
-  min-width: 65px;
+  min-width: 70px;
   text-align: right;
 }
 
@@ -1067,9 +992,9 @@ body.modal-aberto {
 
 .form-titulo {
   font-family: var(--font-heading);
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 800;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   color: var(--dark);
 }
 
@@ -1110,7 +1035,7 @@ body.modal-aberto {
   background: #f0fdf4;
   border: 1.5px dashed #4ade80;
   border-radius: var(--radius-md);
-  padding: 12px 14px;
+  padding: 12px 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1120,22 +1045,19 @@ body.modal-aberto {
 .pix-info {
   display: flex;
   flex-direction: column;
-  min-width: 0;
-  overflow: hidden;
 }
 
 .pix-badge {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 800;
   color: #166534;
   text-transform: uppercase;
 }
 
 .pix-chave {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: var(--dark);
-  word-break: break-all;
 }
 
 .btn-copiar {
@@ -1144,11 +1066,10 @@ body.modal-aberto {
   border: none;
   padding: 6px 12px;
   border-radius: var(--radius-sm);
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 700;
   cursor: pointer;
   transition: var(--transition);
-  flex-shrink: 0;
 }
 
 .btn-copiar:hover {
@@ -1156,33 +1077,31 @@ body.modal-aberto {
 }
 
 .modal-footer {
-  padding: 16px 20px;
+  padding: 18px 22px;
   border-top: 1px solid var(--border);
   background: #f8fafc;
-  flex-shrink: 0;
-  z-index: 10;
 }
 
 .resumo-valores {
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .resumo-linha {
   display: flex;
   justify-content: space-between;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: var(--text-muted);
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 
 .total-destaque-linha {
   font-family: var(--font-heading);
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 900;
   color: var(--dark);
   border-top: 1.5px dashed var(--border);
-  padding-top: 8px;
-  margin-top: 8px;
+  padding-top: 10px;
+  margin-top: 10px;
 }
 
 .preco-verde {
@@ -1191,16 +1110,16 @@ body.modal-aberto {
 
 .botoes-modal {
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 
 .btn-esvaziar {
   background: transparent;
   color: #ef4444;
   border: 1.5px solid #fca5a5;
-  padding: 11px 16px;
+  padding: 12px 16px;
   border-radius: var(--radius-sm);
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   font-weight: 700;
   cursor: pointer;
   transition: var(--transition);
@@ -1217,7 +1136,7 @@ body.modal-aberto {
   border: none;
   padding: 12px 18px;
   border-radius: var(--radius-sm);
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 800;
   cursor: pointer;
   display: flex;
@@ -1235,97 +1154,30 @@ body.modal-aberto {
 
 .toast-aviso {
   position: fixed;
-  bottom: 85px;
+  bottom: 95px;
   left: 50%;
   transform: translateX(-50%) translateY(40px);
-  background: rgba(15, 23, 42, 0.96);
-  backdrop-filter: blur(12px);
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(8px);
   color: #ffffff;
   padding: 12px 22px;
   border-radius: var(--radius-full);
   font-size: 0.88rem;
   font-weight: 700;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  box-shadow: var(--shadow-float);
   opacity: 0;
   pointer-events: none;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 99999;
+  z-index: 100;
   display: flex;
   align-items: center;
   gap: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  width: max-content;
-  max-width: 90vw;
-  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .toast-aviso.show {
   transform: translateX(-50%) translateY(0);
   opacity: 1;
-}
-
-.input-erro {
-  border-color: #ef4444 !important;
-  background-color: #fef2f2 !important;
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25) !important;
-  animation: shake 0.35s ease-in-out;
-}
-
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  20%, 60% { transform: translateX(-6px); }
-  40%, 80% { transform: translateX(6px); }
-}
-
-/* ==========================================================================
-   ADAPTAÇÃO RESPONSIVA PARA DISPOSITIVOS MÓVEIS (CELULAR)
-   ========================================================================== */
-@media (max-width: 640px) {
-  .modal-dialog {
-    width: 100%;
-    max-width: 100%;
-    margin: auto 0 0 0;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    border-top-left-radius: 24px;
-    border-top-right-radius: 24px;
-    max-height: 92vh;
-    max-height: 92dvh;
-  }
-
-  .modal-dialog.modal-small {
-    margin: auto;
-    border-radius: var(--radius-lg);
-    width: 90%;
-    max-width: 380px;
-    max-height: 85vh;
-  }
-
-  .modal-content {
-    max-height: 92vh;
-    max-height: 92dvh;
-  }
-
-  .modal-header {
-    padding: 14px 18px;
-  }
-
-  .modal-body {
-    padding: 16px 18px;
-  }
-
-  .modal-footer {
-    padding: 14px 18px calc(16px + env(safe-area-inset-bottom, 0px)) 18px;
-  }
-
-  .botoes-modal {
-    gap: 8px;
-  }
-
-  .btn-whatsapp-empresa {
-    padding: 13px 14px;
-    font-size: 0.88rem;
-  }
 }
 
 @keyframes slideUp {

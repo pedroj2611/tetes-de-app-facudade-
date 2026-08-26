@@ -11,31 +11,6 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Cardápio Pro">
 
-  <!-- Metatags para Compartilhamento e Preview com Imagem no WhatsApp -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://pedroj2611.github.io/tetes-de-app-facudade-/">
-  <meta property="og:title" content="Sabor & Arte Gourmet | Cardápio Digital Profissional">
-  <meta property="og:description" content="Cardápio digital empresarial interativo para pedidos rápidos via WhatsApp, visualização de produtos e cálculo de total.">
-  <meta property="og:image" content="https://pedroj2611.github.io/tetes-de-app-facudade-/icons/icon-512.png">
-  <meta property="og:image:secure_url" content="https://pedroj2611.github.io/tetes-de-app-facudade-/icons/icon-512.png">
-  <meta property="og:image:type" content="image/png">
-  <meta property="og:image:width" content="512">
-  <meta property="og:image:height" content="512">
-  <meta property="og:image:alt" content="Sabor & Arte Gourmet">
-  <meta property="og:site_name" content="Sabor & Arte Gourmet">
-
-  <!-- Compatibilidade Legada WhatsApp -->
-  <link rel="image_src" href="https://pedroj2611.github.io/tetes-de-app-facudade-/icons/icon-512.png">
-  <meta itemprop="name" content="Sabor & Arte Gourmet | Cardápio Digital Profissional">
-  <meta itemprop="description" content="Cardápio digital empresarial interativo para pedidos rápidos via WhatsApp.">
-  <meta itemprop="image" content="https://pedroj2611.github.io/tetes-de-app-facudade-/icons/icon-512.png">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Sabor & Arte Gourmet | Cardápio Digital Profissional">
-  <meta name="twitter:description" content="Cardápio digital empresarial interativo para pedidos rápidos via WhatsApp.">
-  <meta name="twitter:image" content="https://pedroj2611.github.io/tetes-de-app-facudade-/icons/icon-512.png">
-
   <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-192.png">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <link rel="manifest" href="manifest.json">
@@ -391,8 +366,8 @@
           </div>
           <div class="input-grupo">
             <label for="config-whatsapp">Número do WhatsApp (com DDD)</label>
-            <input type="text" id="config-whatsapp" placeholder="Ex: 5579999820686">
-            <small style="color: var(--text-muted); font-size: 0.75rem;">Digite com DDD (ex: 5579999820686 ou 79999820686)</small>
+            <input type="text" id="config-whatsapp" placeholder="Ex: 5579999999999">
+            <small style="color: var(--text-muted); font-size: 0.75rem;">Digite apenas números com código do país (ex: 5579999999999)</small>
           </div>
           <div class="input-grupo">
             <label for="config-taxa-entrega">Taxa Padrão de Entrega (R$)</label>
@@ -441,7 +416,8 @@
     }
   </script>
 
-  <!-- CONTROLLER PRINCIPAL (ARQUITETURA MVC) -->
+  <!-- CONTROLLER PRINCIPAL (MVC) -->
   <script type="module" src="js/controllers/AppController.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

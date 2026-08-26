@@ -49,7 +49,6 @@ if (bundleCSS) {
 // 4. Copia arquivos principais
 const filesToCopy = [
   'index.html',
-  'checkout.html',
   'app.js',
   'sw.js',
   'manifest.json'

@@ -153,9 +153,12 @@ export class AppController {
     const btnEnviarWhatsApp = document.getElementById("btn-enviar-whatsapp");
 
     if (btnAbrirPedido) {
-      btnAbrirPedido.addEventListener("click", () => {
-        this.atualizarInterface();
-        this.modalView.abrirModal(this.modalView.modalPedido);
+      btnAbrirPedido.addEventListener("click", (e) => {
+        if (this.cartModel.obterItens().length === 0) {
+          e.preventDefault();
+          ToastView.mostrarToast("Adicione itens ao carrinho primeiro!", "🛒");
+          return;
+        }
       });
     }
 

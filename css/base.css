@@ -41,13 +41,19 @@
   --transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* RESET E BASE */
-* {
+/* RESET E PREVENÇÃO DE OVERFLOW */
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: var(--font-body);
   -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 html {
@@ -63,8 +69,13 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 .app-container {
   max-width: 1000px;
   margin: 0 auto;
   padding: 20px 16px;
+  width: 100%;
 }

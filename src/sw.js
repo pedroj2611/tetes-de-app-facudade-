@@ -2,12 +2,23 @@
 // SERVICE WORKER PROFISSIONAL (PWA) - CARDÁPIO GOURMET
 // ==========================================================================
 
-const CACHE_NAME = "cardapio-gourmet-v4";
+const CACHE_NAME = "cardapio-gourmet-v6";
 
 const ARQUIVOS_ESTATICOS = [
   "./",
   "./index.html",
+  "./css/base.css",
+  "./css/components.css",
+  "./css/modals.css",
   "./style.css",
+  "./js/controllers/AppController.js",
+  "./js/models/ProductModel.js",
+  "./js/models/CartModel.js",
+  "./js/models/ConfigModel.js",
+  "./js/views/ProductView.js",
+  "./js/views/CartView.js",
+  "./js/views/ModalView.js",
+  "./js/views/ToastView.js",
   "./app.js",
   "./manifest.json",
   "./icons/icon-192.png",
@@ -45,10 +56,8 @@ self.addEventListener("activate", (evento) => {
 self.addEventListener("fetch", (evento) => {
   const req = evento.request;
 
-  // Ignora requisições não-GET
   if (req.method !== 'GET') return;
 
-  // Se for navegação (abertura da página HTML), busca rede primeiro para nunca travar versão antiga
   if (req.mode === "navigate") {
     evento.respondWith(
       fetch(req)
@@ -62,7 +71,6 @@ self.addEventListener("fetch", (evento) => {
     return;
   }
 
-  // Para outros arquivos: responde rápido do cache e atualiza em segundo plano
   evento.respondWith(
     caches.match(req).then((respostaCache) => {
       const buscaRede = fetch(req)

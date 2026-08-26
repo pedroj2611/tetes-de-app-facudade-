@@ -102,7 +102,7 @@ const PRODUTOS_PADRAO = [
 
 const CONFIG_PADRAO = {
   nomeLoja: "Sabor & Arte Gourmet",
-  whatsapp: "5579999999999",
+  whatsapp: "5579999820686",
   taxaEntrega: 5.00,
   chavePix: "pix@saborearte.com.br"
 };
@@ -176,7 +176,13 @@ function salvarCarrinho() {
 function carregarConfig() {
   try {
     const salvos = localStorage.getItem("cardapio_pro_config");
-    return salvos ? JSON.parse(salvos) : { ...CONFIG_PADRAO };
+    if (!salvos) return { ...CONFIG_PADRAO };
+    const conf = JSON.parse(salvos);
+    if (!conf.whatsapp || conf.whatsapp === "5579999999999") {
+      conf.whatsapp = CONFIG_PADRAO.whatsapp;
+      localStorage.setItem("cardapio_pro_config", JSON.stringify(conf));
+    }
+    return conf;
   } catch (e) {
     return { ...CONFIG_PADRAO };
   }
